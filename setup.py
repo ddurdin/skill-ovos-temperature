@@ -3,9 +3,9 @@ import os
 from setuptools import setup
 from os import walk, path
 
-URL = "https://github.com/OpenVoiceOS/skill-ovos-hello-world"
-SKILL_CLAZZ = "HelloWorldSkill"  # needs to match __init__.py class name
-PYPI_NAME = "ovos-skill-hello-world"  # pip install PYPI_NAME
+URL = "https://github.com/ddurdin/ovos-skill-temperature"
+SKILL_CLAZZ = "TemperatureSkill"  # needs to match __init__.py class name
+PYPI_NAME = "ovos-skill-temperature"  # pip install PYPI_NAME
 
 # below derived from github url to ensure standard skill_id
 SKILL_AUTHOR, SKILL_NAME = URL.split(".com/")[-1].split("/")
@@ -62,8 +62,8 @@ setup(
     long_description=long_description,
     url=URL,
     author=SKILL_AUTHOR,
-    description='OVOS hello world skill plugin',
-    author_email='jarbasai@mailfence.com',
+    description='OVOS temperature skill plugin',
+    author_email='ddurdin@gmail.com',
     license='Apache-2.0',
     package_dir={SKILL_PKG: ""},
     package_data={SKILL_PKG: find_resource_files()},

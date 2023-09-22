@@ -3,9 +3,31 @@ from ovos_utils.intents import IntentBuilder
 from ovos_utils.process_utils import RuntimeRequirements
 from ovos_workshop.decorators import intent_handler
 from ovos_workshop.skills import OVOSSkill
+import requests
+import json
+import datetime 
+import time
+from time import mktime
+import pytz
 
+def get_temperature():
 
-class HelloWorldSkill(OVOSSkill):
+  Dict_of_temps = {}
+
+  r = requests.get("https://api.open-meteo.com/v1/forecast?latitude=33.99&longitude=-83.72&hourly=temperature_2m")
+  data = json.loads(r.text)
+  for i,j in zip(data["hourly"]["temperature_2m"], data["hourly"]["time"]):
+    Dict_of_temps[j] = i
+
+  time_key = time.strftime("%Y-%m-%dT%T", time.gmtime())
+
+  time_key = time_key.split(":")
+  time_key = time_key[0] + ":00"
+
+  temp = Dict_of_temps[time_key]
+  return(round((temp * 1.8) + 32))
+
+class TemperatureSkill(OVOSSkill):
     def __init__(self, *args, **kwargs):
         """The __init__ method is called when the Skill is first constructed.
         Note that self.bus, self.skill_id, self.settings, and
@@ -39,23 +61,27 @@ class HelloWorldSkill(OVOSSkill):
         """
         return self.settings.get("my_setting", "default_value")
 
-    @intent_handler(IntentBuilder("ThankYouIntent").require("ThankYouKeyword"))
-    def handle_thank_you_intent(self, message):
+    @intent_handler(IntentBuilder("TemperatureIntent").require("TemperatureKeyword"))
+    def handle_temperature_intent(self, message):
         """This is an Adapt intent handler, it is triggered by a keyword."""
-        self.speak_dialog("welcome")
+        self.log.info("Happiness: keyword handler")
+        current_temperature = get_temperature()
+        self.speak_dialog("how.cold.is.it",{"temperature": current_temperature})
 
-    @intent_handler("HowAreYou.intent")
-    def handle_how_are_you_intent(self, message):
+    @intent_handler("HowColdIsIt.intent")
+    def handle_how_cold_is_it_intent(self, message):
         """This is a Padatious intent handler.
         It is triggered using a list of sample phrases."""
-        self.speak_dialog("how.are.you")
+        self.log.info("Happiness: phrase handler")
+        current_temperature = get_temperature()
+        self.speak_dialog("how.cold.is.it",{"temperature": current_temperature})
 
-    @intent_handler(IntentBuilder("HelloWorldIntent").require("HelloWorldKeyword"))
-    def handle_hello_world_intent(self, message):
+    @intent_handler(IntentBuilder("HumidityIntent").require("HumidityKeyword"))
+    def handle_humidity_intent(self, message):
         """Skills can log useful information. These will appear in the CLI and
         the skills.log file."""
-        self.log.info("There are five types of log messages: " "info, debug, warning, error, and exception.")
-        self.speak_dialog("hello.world")
+        self.log.info("Happiness: 80")
+        self.speak_dialog("humidity")
 
     def stop(self):
         """Optional action to take when "stop" is requested by the user.
