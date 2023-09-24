@@ -1,0 +1,3 @@
+[ovos.plugin.skill]
+skill-ovos-temperature.openvoiceos=skill_ovos_temperature:TemperatureSkill
+
