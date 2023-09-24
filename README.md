@@ -4,13 +4,12 @@ Introductory Skill so that Skill Authors can see how an OVOS Skill is put togeth
 
 ## About
 
-This is a basic Hello Word Skill that takes an _Utterance_ from the user and provides a voice response - a _Dialog_. This Skill demonstrates the basic directory and file structure of an OVOS Skill, and is a good first Skill to study if you are interested in developing Skills for the OVOS ecosystem.
+Returns the local temperature and forecast fron a NWS website
 
 ## Examples
 
-- "Hello world"
-- "How are you?"
-- "Thank you"
+- "How cold is it?"
+- "What is the temperature"
 
 ## Credits
 
@@ -23,7 +22,5 @@ OpenVoiceOS (@OpenVoiceOS)
 
 ## Tags
 
-#helloworld
-#first-skill
-#hello
-#greeting
+#temperature
+#weather

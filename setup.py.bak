@@ -3,7 +3,7 @@ import os
 from setuptools import setup
 from os import walk, path
 
-URL = "https://github.com/OpenVoiceOS/skill-ovos-temperature"
+URL = "https://github.com/ddurdin/ovos-skill-temperature"
 SKILL_CLAZZ = "TemperatureSkill"  # needs to match __init__.py class name
 PYPI_NAME = "ovos-skill-temperature"  # pip install PYPI_NAME
 

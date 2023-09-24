@@ -1,1 +1,1 @@
-The current temperature is {{temperature}}
+The current temperature is {{temperature}}. The forecast for today is {{forecast}}.
